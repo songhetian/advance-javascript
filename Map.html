@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Map</title>
+    </head>
+
+    <body>
+
+    </body>
+    <script type="text/javascript">
+
+        const map1 = new Map();
+
+        map1.set('key1', 'value1');
+        map1.set('name', 'tianhesong');
+        console.log(map1);
+        console.log(map1.get('key1'));
+        console.log(map1.has('key1'));
+        console.log(map1.size);
+
+        //
+        const objKey = {};
+        const objValue = {};
+
+        const arrKey = [];
+        const arrValue = [];
+
+        map1.set(objKey, objValue);
+        map1.set(arrKey, arrValue);
+
+        objValue.age = 100;
+        arrValue.push(1000);
+
+        console.log(map1.get(objKey));
+        console.log(map1.get(arrKey));
+
+
+        console.log(Array.from(map1));
+
+        console.log(Array.from(map1.entries()));
+
+        const obj = { name: "123" };
+
+        const m = new Map([
+            ["key1", "value1"],
+            ["key2", "value2"],
+            ["key3", "value3"],
+        ]);
+
+        console.log(m.entries());
+        const a1 = ['red', 'green', 'blue', 'yellow'];
+        const m1 = new Map(a1.entries());
+
+        console.log([...m1]);
+
+        m1.forEach((val, key) => console.log(val + '-----' + key));
+
+        console.log(m1.keys());
+        console.log(m1.values());
+
+        for (const key of m1.keys()) {
+            console.log(key);
+        }
+
+        m1.delete(0);
+        console.log(m1);
+
+        const obj1 = {
+            name: 'foo',
+            age: 20
+        };
+
+        delete obj1.name;
+        console.log(obj1);
+
+    </script>
+
+</html>

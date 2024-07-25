@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Set</title>
+    </head>
+
+    <body>
+
+    </body>
+    <script>
+        const s1 = new Set([1, 2, 3, 4]);
+        s1.add(5).add(6).add(2);
+        console.log(s1.size);
+        console.log(s1.has(1));
+        s1.delete(1);
+        console.log(s1.entries());
+        console.log([...s1]);
+        console.log(s1); // Output: Set { 1, 2, 3, 4 }
+        //s1.clear();
+        console.log(s1.keys());
+        console.log(s1.values());
+        console.log(s1.entries());
+
+        const s2 = new Set([
+            { name: 'John', age: 20 },
+            { name: 'Jane', age: 25 },
+            { name: 'John', age: 30 },
+        ]);
+        console.log(s2);
+
+        const s3 = new Set([
+            ['key1', 'key2'],
+            ['key2', 'key3'],
+            ['key1', 'key2'],
+        ]);
+
+        console.log(s2.entries());
+    </script>
+
+</html>
