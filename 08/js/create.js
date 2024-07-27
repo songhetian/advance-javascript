@@ -62,6 +62,7 @@ console.log(o.name, o.age);
 
 //let PersonPro = function(){};
 function PersonPro() {}
+function PersonPro1() {}
 
 PersonPro.prototype.name = "原型模式";
 PersonPro.prototype.sayName = function () {
@@ -75,3 +76,133 @@ const p6= new PersonPro();
 console.log(p5.name);
 console.log(p6.name);
 console.log(p5.sayName === p6.sayName);
+
+console.log(PersonPro.prototype,'123');
+console.log(p5,'p5');
+console.log(Object.prototype.constructor,'Object.prototype.constructor');
+Object.name = "12345667";
+console.log(PersonPro.prototype.__proto__, 'Object.prototype.constructor');
+console.log(PersonPro.prototype.__proto__ === Object.prototype);
+console.log(PersonPro.prototype.__proto__.constructor);
+console.log(PersonPro.prototype.__proto__.__proto__);
+
+console.log(PersonPro.prototype.isPrototypeOf(p5)); //
+
+//返回对象的原型对象
+console.log(Object.getPrototypeOf(p5) === PersonPro.prototype);
+
+// Object.defineProperty(p5, "name", {
+//    
+// });
+const a1 = {name : 'a'};
+console.log(Object.getOwnPropertyDescriptors(a1));
+
+const a2 = {};
+
+Object.defineProperties(a2,{
+    name:{
+        value:'a2'
+    },
+    age : {
+        value:100
+    },
+    a2 : {
+        get : function () {
+           return this.age; 
+        },
+        set(val) {
+            this.age = val;
+        }
+    }
+});
+
+//设置原型
+let biped = {
+    number: 2
+}
+let person10 = {
+    name : 'john'
+}
+
+Object.setPrototypeOf(person10,biped);
+console.log(person10.__proto__);
+console.log(Object.getPrototypeOf(person10));
+
+let person11 = Object.create(biped);
+person11.name = "test";
+console.log(person11.__proto__,"person11");
+console.log(biped.isPrototypeOf(person11));
+console.log(Object.getPrototypeOf(person11)===biped);
+
+//判断属性是在实例上还是原型上
+let Person12 = function() {};
+const p01 = new Person12(12);
+console.log(p01.hasOwnProperty('age'),'p01');
+console.log(person11.hasOwnProperty('name'));
+console.log(person11.hasOwnProperty('number'));
+console.log(PersonPro.hasOwnProperty('name'));
+
+console.log(Object.getOwnPropertyDescriptors(p01));
+console.log(Object.getOwnPropertyDescriptor(p01,'age'));
+
+//in操作符
+
+console.log("name" in person10);
+console.log("number" in person10);
+
+console.log(Object.keys(person10));
+
+console.log(Object.getOwnPropertyNames(Person12.prototype));
+
+
+//其他原型语法
+
+function Person01() {};
+// Person01.prototype.name = "test";
+
+// Person01.prototype = new Object();
+Person01.prototype = {
+    name: "Nicholas",
+    age: 29,
+    job: "Software Engineer",
+    sayName() {
+        console.log(this.name);
+    }
+};
+
+let friend = new Person01();
+
+console.log(friend.constructor);
+console.log(friend instanceof Object); // true
+console.log(friend instanceof Person01); // true
+
+console.log(friend.constructor == Person); // false
+console.log(friend.constructor == Object); // true
+
+//继承
+let SuperType = function() {
+    this.superPrototype = true;
+}
+SuperType.prototype.getSuperValue = function() {
+    return this.superPrototype;
+}
+
+let SubType = function() {
+    this.subPrototype = false;
+};
+
+SubType.prototype = Object.create(SuperType.prototype);
+
+SubType.prototype.getSubValue = function() {
+    return this.subPrototype;
+}
+
+const instance = new SubType();
+
+console.log(SuperType.prototype,"supertype");
+console.log(SubType.prototype,"subtype");
+console.log(instance.getSuperValue());
+console.log(instance.getSubValue());
+console.log(SubType.prototype.isPrototypeOf(instance));
+console.log(Object.getPrototypeOf(instance) === SubType.prototype);
+console.log(SubType.prototype);
