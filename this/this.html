@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>This</title>
+    </head>
+    <body>
+        <button class="btn">dianji</button>
+    </body>
+    <script>
+        //this--用于访问当前方法所属的对象
+        let obj = {
+            a: 12,
+            fn() {
+                const _this = this;
+                console.log(this);
+                return {
+                    fn1() {
+                        console.log(this);
+                    }
+                };
+            }
+        };
+
+        //函数直接调用--window 严格模式为undefined
+
+        function show() {
+            console.log(this);
+        }
+
+        //定时器调用指向windows
+
+        //构造函数中的show--当前构建出的实例
+
+        //call apply foreach map等指向的this
+
+        // 箭头函数指向运行的上下文 父类
+
+        const btn = document.querySelector('.btn');
+
+        btn.addEventListener('click', function () {
+            console.log(this);
+        });
+
+        btn.addEventListener('click', () => {
+            console.log(this);
+        });
+
+        function Person(name, age) {
+            this.name = '人类';
+            this.age = 100;
+        }
+
+        Person.prototype.SayHello = function () {
+            console.log(this);
+        };
+        Person.prototype.SayName = () => {
+            console.log(this);
+        };
+        const p = new Person();
+        p.SayHello();
+        p.SayName();
+        console.log(p);
+
+        class Father {
+
+            constructor() {
+                this.eat = this.eat.bind(this);
+            }
+
+            get fruit() {
+                return 'apple';
+            }
+
+            eat() {
+                console.log(`我吃的的${this.fruit}`);
+            }
+        }
+
+        class Son {
+            get fruit() {
+                return "葡萄";
+            }
+        }
+
+        const father = new Father();
+        const son = new Son();
+
+        son.eat = father.eat;
+
+        son.eat();
+    </script>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>闭包</title>
+    </head>
+    <body>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <button class="btn">Click Me!</button>
+    </body>
+    <script>
+        function students() {
+            const s = ['x1', 'x2', 'x3'];
+
+            function add(name) {
+                s.push(name);
+                console.log(s.join('-'));
+            }
+
+            function sub() {
+                s.pop();
+                console.log(s.join('-'));
+            }
+
+            return {add, sub};
+        }
+
+        let obj = students();
+        obj.add('x4');
+        obj.sub('x4');
+
+        //立即执行函数
+        const lis = document.querySelectorAll('li');
+
+        //形成了闭包
+        function test() {
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].addEventListener('click', function () {
+                    console.log(i);
+                });
+            }
+        }
+
+        //只有当点击时候才会触发function 形成了闭包
+
+        function test1() {
+            var i = 0;
+            for (; i < lis.length;) {
+                lis[i].addEventListener('click', function () {
+                    console.log(i);
+                });
+                i++;
+            }
+        }
+
+        function test2() {
+
+            for (var i = 0; i < lis.length; i++) {
+                (function (j) {
+                    lis[j].addEventListener('click', function () {
+                        console.log(j);
+                    });
+                })(i);
+
+            }
+        }
+
+        test2();
+
+        const btn = document.querySelector('.btn');
+
+        btn.onclick = function () {
+            console.log(this);
+        };
+
+        btn.onclick = () => {
+            console.log(this);
+        };
+
+        //包装类
+        let name = 'language';
+        name += 10;
+
+        /*
+         * 使用new String包装类把 type包装成对象
+         * 对象可以添加属性值
+         */
+
+
+        //let type = new String(typeof (name));
+
+        /*
+         * 因为type为原始值 原始值没有属性
+         * js底层为了实现 会使用 new String(name).text 重新封装
+         * 但是没有变量接受值 所以赋值完成之后就调用delete删除
+         * 所以才是undefined
+         */
+        let type = typeof (name);
+
+        type.text = 'string1';
+
+        console.log(type.text);
+
+        function test(a, b, c) {
+            a = 100;
+            console.log(arguments);
+        }
+
+        test(1, 2, 3);
+
+        const str = '你你你你你你我是的123';
+
+        function fn1(str) {
+            const len = str.length;
+            let total = 0;
+            let index = 0;
+
+            function check() {
+                if (index < len) {
+                    const a = str.charCodeAt(index);
+
+                    index++;
+                    if (a > 255) {
+                        return 2;
+                    } else {
+                        return 1;
+                    }
+                }
+                return total;
+            }
+
+            return check;
+        }
+
+        const t = fn1(str);
+        let total = 0;
+        for (let i = 0; i < str.length; i++) {
+            total += t();
+        }
+        console.log(total);
+
+        //继承
+        function Person() {
+            this.email = 'text';
+        }
+
+        Person.prototype = {
+            name1: "人类",
+            sayHello() {
+                console.log('hello');
+            }
+        };
+        const p = new Person();
+
+        console.log(p);
+
+        function Student() {
+            // Person.call(this, 'test');
+            this.name = 'xx';
+        }
+
+        // Student.prototype = Object.create(Person.prototype);
+        Student.prototype = new Person();
+        Student.prototype.name1 = '123test';
+        Student.prototype.age = 10;
+        const s = new Student();
+        console.log(s);
+
+        var names = "window---name";
+
+        function TestA(name) {
+            this.names = name;
+        }
+
+        TestA.prototype.sayHello = function () {
+            console.log(this.names);
+        };
+        const ta = new TestA('testA');
+        console.log(ta);
+    </script>
+</html>
