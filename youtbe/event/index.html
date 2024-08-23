@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background: aquamarine;
+            }
+
+            .first {
+                width: 500px;
+                height: 500px;
+                border: 1px solid rebeccapurple;
+                margin: 0 auto;
+            }
+
+            .first::after {
+                content: "first";
+                display: block;
+                position: absolute;
+                top: 10px;
+            }
+
+            .second {
+                width: 400px;
+                height: 400px;
+                border: 1px solid yellowgreen;
+                margin: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .second::after {
+                content: "second";
+                display: block;
+                position: absolute;
+                top: 10px;
+            }
+
+            .thr {
+                width: 300px;
+                height: 300px;
+                border: 1px solid greenyellow;
+                margin: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .thr::after {
+                content: "thr";
+                display: block;
+                position: absolute;
+                top: 10px;
+            }
+
+            .thr p {
+                margin: 50%;
+                width: 100px;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="first">
+            <div class="second">
+                <div class="thr">
+                    <p>Click Me!</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="index.js"></script>
+</html>
